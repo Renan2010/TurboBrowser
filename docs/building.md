@@ -1,6 +1,6 @@
 # Building RLBrowser
 
-The recommended way to build ungoogled-chromium is by consulting [the repository for your supported platform (links here)](platforms.md).
+The recommended way to build RLBrowser is by consulting [the repository for your supported platform (links here)](platforms.md).
 
 * *Linux users*: If your distribution is not listed, you will need to use Portable Linux.
 
