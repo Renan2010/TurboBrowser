@@ -1,4 +1,4 @@
-# ungoogled-chromium
+# RLBrowser ungoogled-chromium fork
 
 *A lightweight approach to removing Google web service dependency*
 
