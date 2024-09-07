@@ -1,7 +1,7 @@
 # RLBrowser
 RLBowser focus on speed and privacy ungloogled-chromium fork 
 
-#  ungloogled chromium source code
+##  ungloogled chromium source code
 
 *A lightweight approach to removing Google web service dependency*
 
