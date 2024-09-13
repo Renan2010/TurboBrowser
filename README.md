@@ -1,5 +1,5 @@
-# RLBrowser
-RLBowser focus on speed and privacy ungloogled-chromium fork 
+# TurboBrowser
+TurboBrowser focus on speed and privacy ungloogled-chromium fork 
 
 ##  ungloogled chromium source code
 
