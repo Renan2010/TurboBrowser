@@ -23,4 +23,4 @@ cd build/src
 CFLAGS="-O3 -march=native -flto -fvectorize -ffp-contract=fast" \
 CXXFLAGS="$CFLAGS" \
 LDFLAGS="-flto -fuse-ld=lld" \
-ninja -C out/Default chrome chromedriver chrome_sandbox
+ninja -j $(nproc) -C out/Default chrome chromedriver chrome_sandbox
