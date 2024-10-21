@@ -1,6 +1,6 @@
 --- a/chrome/browser/ungoogled_flag_entries.h
 +++ b/chrome/browser/ungoogled_flag_entries.h
-@@ -132,4 +132,8 @@
+@@ -128,4 +128,8 @@
       "Minimal Referrers",
       "Removes all cross-origin referrers and strips same-origin referrers down to the origin. Has lower precedence than remove-cross-origin-referrers. ungoogled-chromium flag.",
       kOsAll, FEATURE_VALUE_TYPE(features::kMinimalReferrers)},
@@ -40,8 +40,8 @@
    bool enable_updated_grease_by_policy = true;
 --- a/third_party/blink/common/features.cc
 +++ b/third_party/blink/common/features.cc
-@@ -21,6 +21,7 @@ namespace blink {
- namespace features {
+@@ -21,6 +21,7 @@
+ namespace blink::features {
  
  BASE_FEATURE(kDisableLinkDrag, "DisableLinkDrag", base::FEATURE_DISABLED_BY_DEFAULT);
 +BASE_FEATURE(kReducedSystemInfo, "ReducedSystemInfo", base::FEATURE_DISABLED_BY_DEFAULT);

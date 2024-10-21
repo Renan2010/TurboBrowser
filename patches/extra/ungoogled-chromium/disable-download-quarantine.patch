@@ -2,7 +2,7 @@
 
 --- a/components/download/internal/common/base_file.cc
 +++ b/components/download/internal/common/base_file.cc
-@@ -23,7 +23,6 @@
+@@ -28,7 +28,6 @@
  #include "components/download/public/common/download_interrupt_reasons_utils.h"
  #include "components/download/public/common/download_item.h"
  #include "components/download/public/common/download_stats.h"
@@ -10,7 +10,7 @@
  #include "crypto/secure_hash.h"
  
  #if BUILDFLAG(IS_ANDROID)
-@@ -526,94 +525,10 @@ DownloadInterruptReason BaseFile::Publis
+@@ -531,94 +530,10 @@ DownloadInterruptReason BaseFile::Publis
  }
  #endif  // BUILDFLAG(IS_ANDROID)
  
@@ -105,8 +105,8 @@
  }
  
  void BaseFile::AnnotateWithSourceInformation(
-@@ -622,32 +537,8 @@ void BaseFile::AnnotateWithSourceInforma
-     const GURL& referrer_url,
+@@ -628,32 +543,8 @@ void BaseFile::AnnotateWithSourceInforma
+     const std::optional<url::Origin>& request_initiator,
      mojo::PendingRemote<quarantine::mojom::Quarantine> remote_quarantine,
      OnAnnotationDoneCallback on_annotation_done_callback) {
 -  GURL authority_url = GetEffectiveAuthorityURL(source_url, referrer_url);
@@ -131,7 +131,7 @@
 -        authority_url, referrer_url));
 -
 -    quarantine_service_->QuarantineFile(
--        full_path_, authority_url, referrer_url, client_guid,
+-        full_path_, authority_url, referrer_url, request_initiator, client_guid,
 -        base::BindOnce(&BaseFile::OnFileQuarantined,
 -                       weak_factory_.GetWeakPtr()));
 -  }
@@ -142,7 +142,7 @@
  }  // namespace download
 --- a/content/browser/BUILD.gn
 +++ b/content/browser/BUILD.gn
-@@ -114,7 +114,6 @@ source_set("browser") {
+@@ -118,7 +118,6 @@ source_set("browser") {
      "//components/payments/mojom",
      "//components/power_monitor",
      "//components/services/filesystem:lib",
@@ -191,7 +191,7 @@
      base::File::Error result) {
    DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
  
-@@ -293,37 +278,9 @@ void FileSystemAccessSafeMoveHelper::Did
+@@ -293,40 +278,9 @@ void FileSystemAccessSafeMoveHelper::Did
        referrer_url.is_valid() && referrer_url.SchemeIsHTTPOrHTTPS()
            ? referrer_url
            : GURL();
@@ -200,6 +200,9 @@
 -    quarantine::mojom::Quarantine* raw_quarantine = quarantine_remote.get();
 -    raw_quarantine->QuarantineFile(
 -        target_url.path(), authority_url, referrer_url,
+-        // TODO(crbug.com/351165321): Consider propagating request_initiator
+-        // information here.
+-        /*request_initiator=*/std::nullopt,
 -        GetContentClient()
 -            ->browser()
 -            ->GetApplicationClientGUIDForQuarantineCheck(),
